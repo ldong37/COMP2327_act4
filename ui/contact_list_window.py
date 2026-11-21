@@ -75,3 +75,10 @@ class ContactListWindow(MainWindow):
         self._name_line_edit.clear()
         self._phone_line_edit.clear()
         self._name_line_edit.setFocus()
+
+    @Slot()
+    def __on_selection_changed(self) -> None:
+        """Enables the remove button when a table row is selected."""
+
+        self._remove_button.setEnabled(
+            len(self._contact_table.selectedItems()) > 0)
