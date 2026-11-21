@@ -82,3 +82,27 @@ class ContactListWindow(MainWindow):
 
         self._remove_button.setEnabled(
             len(self._contact_table.selectedItems()) > 0)
+        
+        
+    @Slot()
+    def __on_remove_clicked(self) -> None:
+        """Removes the selected contact after the user confirms."""
+
+        row = self._contact_table.currentRow()
+        if row < 0:
+            return
+
+        contact_name = self._contact_table.item(row, 0).text()
+
+        message_box = QMessageBox(self)
+        message_box.setWindowTitle("Remove Contact")
+        message_box.setIcon(QMessageBox.Icon.Question)
+        message_box.setText(f"Do you want to remove the contact "
+                            f"{contact_name}?")
+        message_box.setStandardButtons(QMessageBox.StandardButton.Yes |
+                                       QMessageBox.StandardButton.No)
+        message_box.setDefaultButton(QMessageBox.StandardButton.No)
+
+        if message_box.exec() == QMessageBox.StandardButton.Yes:
+            self._contact_table.removeRow(row)
+            self.__on_selection_changed()
