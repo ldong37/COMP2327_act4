@@ -43,4 +43,19 @@ class ContactListWindow(MainWindow):
         self._contact_table.itemSelectionChanged.connect(
             self.__on_selection_changed)
         
-        
+         
+    @Slot()
+ 
+    def __on_input_changed(self) -> None:
+        """Enables the add button when the name and phone inputs are valid.
+
+        The name must not be empty and the phone number must have all
+        10 digits entered.
+        """
+
+        name = self._name_line_edit.text().strip()
+        phone = self._phone_line_edit.text()
+        digit_count = sum(character.isdigit() for character in phone)
+
+        self._add_button.setEnabled(
+            name != "" and digit_count == PHONE_DIGIT_COUNT)
