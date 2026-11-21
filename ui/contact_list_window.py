@@ -59,3 +59,19 @@ class ContactListWindow(MainWindow):
 
         self._add_button.setEnabled(
             name != "" and digit_count == PHONE_DIGIT_COUNT)
+        
+        
+    @Slot()
+    def __on_add_clicked(self) -> None:
+        """Adds a contact to the table and resets the input widgets."""
+
+        row = self._contact_table.rowCount()
+        self._contact_table.insertRow(row)
+        self._contact_table.setItem(
+            row, 0, QTableWidgetItem(self._name_line_edit.text().strip()))
+        self._contact_table.setItem(
+            row, 1, QTableWidgetItem(self._phone_line_edit.text()))
+
+        self._name_line_edit.clear()
+        self._phone_line_edit.clear()
+        self._name_line_edit.setFocus()
