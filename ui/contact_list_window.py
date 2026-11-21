@@ -36,3 +36,11 @@ class ContactListWindow(MainWindow):
 
     def __connect_signals(self) -> None:
         """Connects the widget signals to their slots."""
+        self._name_line_edit.textChanged.connect(self.__on_input_changed)
+        self._phone_line_edit.textChanged.connect(self.__on_input_changed)
+        self._add_button.clicked.connect(self.__on_add_clicked)
+        self._remove_button.clicked.connect(self.__on_remove_clicked)
+        self._contact_table.itemSelectionChanged.connect(
+            self.__on_selection_changed)
+        
+        
