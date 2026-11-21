@@ -9,3 +9,30 @@ from PySide6.QtWidgets import QMessageBox, QTableWidgetItem
 from ui.base.main_window import MainWindow
 
 
+PHONE_DIGIT_COUNT = 10
+
+class ContactListWindow(MainWindow):
+    """Represents the main window of the contact list application"""
+    
+    def __init__(self) -> None:
+        """Initializes a new instance of the ContactListWindow class."""
+
+        super().__init__()
+
+        self.setWindowTitle("Contact Manager")
+
+        self.__set_initial_widget_state()
+        self.__connect_signals()
+
+    def __set_initial_widget_state(self) -> None:
+        """Sets the widgets to their initial state."""
+
+        self._name_line_edit.setPlaceholderText("Contact Name")
+        self._phone_line_edit.setInputMask("(000) 000-0000;_")
+
+        self._add_button.setDefault(True)
+        self._add_button.setEnabled(False)
+        self._remove_button.setEnabled(False)
+
+    def __connect_signals(self) -> None:
+        """Connects the widget signals to their slots."""
